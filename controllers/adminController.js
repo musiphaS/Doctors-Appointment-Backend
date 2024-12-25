@@ -76,4 +76,19 @@ const loginAdmin = async (req, res) => {
     }
 };
 
-export { addDoctor, loginAdmin };
+// API to get all doctors list for admin panel
+
+const allDoctors = async () => {
+    try {
+        const doctors = await doctorModel.find({}).select('-password')
+        res.json({success:true,doctors})
+    } catch (error) {
+        console.error("Error during admin login:", error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred during login. Please try again.",
+        });
+    }
+}
+
+export { addDoctor, loginAdmin, allDoctors };
